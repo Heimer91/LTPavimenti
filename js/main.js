@@ -164,14 +164,14 @@ class BeforeAfterSlider {
         document.addEventListener('mouseup', this.endDrag.bind(this));
         
         // Touch events
-        this.handle.addEventListener('touchstart', this.startDrag.bind(this));
+        this.handle.addEventListener('touchstart', (e) => { this.startDrag(e); }, { passive: true });
         this.slider.addEventListener('touchstart', (e) => {
             if (e.target !== this.handle) {
                 this.updateFromEvent(e);
                 this.startDrag(e);
             }
         }, { passive: true });
-        document.addEventListener('touchmove', this.drag.bind(this), { passive: true });
+        document.addEventListener('touchmove', (e) => this.drag(e), { passive: false });
         document.addEventListener('touchend', this.endDrag.bind(this));
 
         // Click to set position
@@ -186,7 +186,7 @@ class BeforeAfterSlider {
     }
     
     startDrag(e) {
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         this.isDragging = true;
         this.slider.style.cursor = 'ew-resize';
     }

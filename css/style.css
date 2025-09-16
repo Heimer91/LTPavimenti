@@ -194,7 +194,7 @@ h1, h2, h3, h4 {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(rgba(26,26,26,0.35), rgba(26,26,26,0.35)), url('Marmo splendente.png') center/cover no-repeat;
+    background: linear-gradient(rgba(26,26,26,0.35), rgba(26,26,26,0.35)), url('../Marmo splendente.png') center/cover no-repeat;
 }
 
 .marble-texture {
@@ -477,6 +477,8 @@ h1, h2, h3, h4 {
     overflow: hidden;
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    touch-action: none;
+    user-select: none;
 }
 
 .before-image,
