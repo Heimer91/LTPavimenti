@@ -145,6 +145,7 @@ class BeforeAfterSlider {
         this.handle = this.slider.querySelector('.slider-handle');
         this.afterImage = this.slider.querySelector('.after-image');
         this.isDragging = false;
+        this.isPointerInside = false;
         
         this.init();
     }
@@ -152,13 +153,33 @@ class BeforeAfterSlider {
     init() {
         // Mouse events
         this.handle.addEventListener('mousedown', this.startDrag.bind(this));
+        this.slider.addEventListener('mousedown', (e) => {
+            // Allow dragging/clicking anywhere on the slider track
+            if (e.target !== this.handle) {
+                this.updateFromEvent(e);
+                this.startDrag(e);
+            }
+        });
         document.addEventListener('mousemove', this.drag.bind(this));
         document.addEventListener('mouseup', this.endDrag.bind(this));
         
         // Touch events
         this.handle.addEventListener('touchstart', this.startDrag.bind(this));
-        document.addEventListener('touchmove', this.drag.bind(this));
+        this.slider.addEventListener('touchstart', (e) => {
+            if (e.target !== this.handle) {
+                this.updateFromEvent(e);
+                this.startDrag(e);
+            }
+        }, { passive: true });
+        document.addEventListener('touchmove', this.drag.bind(this), { passive: true });
         document.addEventListener('touchend', this.endDrag.bind(this));
+
+        // Click to set position
+        this.slider.addEventListener('click', (e) => {
+            if (e.target !== this.handle) {
+                this.updateFromEvent(e);
+            }
+        });
         
         // Set initial position
         this.updatePosition(50);
@@ -172,15 +193,7 @@ class BeforeAfterSlider {
     
     drag(e) {
         if (!this.isDragging) return;
-        
-        const rect = this.slider.getBoundingClientRect();
-        let x = e.clientX || e.touches[0].clientX;
-        let position = ((x - rect.left) / rect.width) * 100;
-        
-        // Constrain position between 0 and 100
-        position = Math.max(0, Math.min(100, position));
-        
-        this.updatePosition(position);
+        this.updateFromEvent(e);
     }
     
     endDrag() {
@@ -188,8 +201,19 @@ class BeforeAfterSlider {
         this.slider.style.cursor = 'default';
     }
     
+    updateFromEvent(e) {
+        const rect = this.slider.getBoundingClientRect();
+        let x = (e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX);
+        let position = ((x - rect.left) / rect.width) * 100;
+        position = Math.max(0, Math.min(100, position));
+        this.updatePosition(position);
+    }
+
     updatePosition(percentage) {
-        this.afterImage.style.width = percentage + '%';
+        // Invert direction: moving right should reveal the image below (base image),
+        // so we reduce the overlay (afterImage) width when percentage increases
+        const overlayWidth = 100 - percentage;
+        this.afterImage.style.width = overlayWidth + '%';
         this.handle.style.left = percentage + '%';
     }
 }
