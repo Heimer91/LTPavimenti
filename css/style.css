@@ -194,7 +194,7 @@ h1, h2, h3, h4 {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(rgba(26,26,26,0.35), rgba(26,26,26,0.35)), url('cacb4d96-b85b-423d-bbd2-ce723a5e7bf5.png') center/cover no-repeat;
+    background: linear-gradient(rgba(26,26,26,0.35), rgba(26,26,26,0.35)), url('Marmo splendente.png') center/cover no-repeat;
 }
 
 .marble-texture {
