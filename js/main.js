@@ -96,15 +96,13 @@ const animateCounters = () => {
 animateCounters();
 
 // ===== INITIALIZE SWIPER SLIDERS =====
-// Gallery Swiper
+// Gallery Swiper - Fixed navigation only
 const gallerySwiper = new Swiper('.gallery-swiper', {
     slidesPerView: 1,
     spaceBetween: 30,
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
+    loop: false,
+    autoplay: false,
+    allowTouchMove: false,
     pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -151,7 +149,7 @@ class BeforeAfterSlider {
     }
     
     init() {
-        // Mouse events
+        // Mouse events - improved drag behavior
         this.handle.addEventListener('mousedown', this.startDrag.bind(this));
         this.slider.addEventListener('mousedown', (e) => {
             // Allow dragging/clicking anywhere on the slider track
@@ -162,6 +160,7 @@ class BeforeAfterSlider {
         });
         document.addEventListener('mousemove', this.drag.bind(this));
         document.addEventListener('mouseup', this.endDrag.bind(this));
+        document.addEventListener('mouseleave', this.endDrag.bind(this)); // End drag when mouse leaves window
         
         // Touch events
         this.handle.addEventListener('touchstart', (e) => { this.startDrag(e); }, { passive: true });
@@ -176,7 +175,7 @@ class BeforeAfterSlider {
 
         // Click to set position
         this.slider.addEventListener('click', (e) => {
-            if (e.target !== this.handle) {
+            if (e.target !== this.handle && !this.isDragging) {
                 this.updateFromEvent(e);
             }
         });
