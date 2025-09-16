@@ -541,6 +541,8 @@ h1, h2, h3, h4 {
     cursor: ew-resize;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 10;
+    transition: none;
+    will-change: left, transform;
 }
 
 .slider-handle i {

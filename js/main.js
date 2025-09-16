@@ -196,6 +196,7 @@ class BeforeAfterSlider {
     drag(e) {
         if (!this.isDragging) return;
         e.preventDefault();
+        e.stopPropagation();
         this.updateFromEvent(e);
     }
     
@@ -219,6 +220,9 @@ class BeforeAfterSlider {
         const overlayWidth = 100 - percentage;
         this.afterImage.style.width = overlayWidth + '%';
         this.handle.style.left = percentage + '%';
+        
+        // Force immediate visual update
+        this.handle.style.transform = `translate(-50%, -50%)`;
     }
 }
 
