@@ -466,14 +466,6 @@ h1, h2, h3, h4 {
     margin-bottom: 4rem;
 }
 
-.gallery-swiper .swiper-slide {
-    display: none;
-}
-
-.gallery-swiper .swiper-slide-active {
-    display: block;
-}
-
 .before-after-container {
     position: relative;
     max-width: 900px;
@@ -487,6 +479,7 @@ h1, h2, h3, h4 {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     touch-action: none;
     user-select: none;
+    cursor: ew-resize;
 }
 
 .before-image,

@@ -96,13 +96,15 @@ const animateCounters = () => {
 animateCounters();
 
 // ===== INITIALIZE SWIPER SLIDERS =====
-// Gallery Swiper - Fixed navigation only
+// Gallery Swiper
 const gallerySwiper = new Swiper('.gallery-swiper', {
     slidesPerView: 1,
     spaceBetween: 30,
-    loop: false,
-    autoplay: false,
-    allowTouchMove: false,
+    loop: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
     pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -188,16 +190,19 @@ class BeforeAfterSlider {
         if (e.cancelable) e.preventDefault();
         this.isDragging = true;
         this.slider.style.cursor = 'ew-resize';
+        document.body.style.userSelect = 'none'; // Prevent text selection during drag
     }
     
     drag(e) {
         if (!this.isDragging) return;
+        e.preventDefault();
         this.updateFromEvent(e);
     }
     
     endDrag() {
         this.isDragging = false;
         this.slider.style.cursor = 'default';
+        document.body.style.userSelect = ''; // Restore text selection
     }
     
     updateFromEvent(e) {
