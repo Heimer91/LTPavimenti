@@ -194,8 +194,7 @@ h1, h2, h3, h4 {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(rgba(26,26,26,0.12), rgba(26,26,26,0.12)), url('../Marmo%20splendente.png') center/cover no-repeat;
-    will-change: background-position;
+    background: linear-gradient(rgba(26,26,26,0.08), rgba(26,26,26,0.08)), url('../Marmo%20splendente.png') center/cover no-repeat;
 }
 
 .marble-texture {

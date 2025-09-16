@@ -272,14 +272,8 @@ if (contactForm) {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const marbleTexture = document.querySelector('.marble-texture');
-    const heroBg = document.querySelector('.hero-bg');
     if (marbleTexture) {
         marbleTexture.style.transform = `translateY(${scrolled * 0.3}px)`;
-    }
-    if (heroBg) {
-        // subtle parallax by shifting background position
-        const y = Math.round(scrolled * 0.15);
-        heroBg.style.backgroundPosition = `center ${y}px`;
     }
 });
 
